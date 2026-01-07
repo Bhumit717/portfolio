@@ -1,0 +1,55 @@
+
+  *{
+    margin:0;
+    padding:0;
+  }
+  
+  body{
+    text-align:left;
+    cursor:none;
+  }
+
+  h1{
+    font-size:40px;
+  }
+  input{
+    background-color:transparent;
+    color:blue;
+    height:10%;
+    width: 60%;
+    border-radius:12px;
+    margin-left:10%;
+    font-size:35px;
+    border-color:transparent;
+    box-shadow:0 0 20px rgb(199, 199, 3);
+    font-weight:bold;
+  }
+  
+  /* main circle cursor */
+  .cursor{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    border: 2px solid black;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out;
+    z-index: 9999;
+  }
+
+  /* puchhadi / tail blur */
+  .cursor::after{
+  content: "";
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  filter: blur(25px);
+  background: rgba(238, 128, 213, 0.89);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
