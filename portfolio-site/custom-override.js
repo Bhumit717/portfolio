@@ -135,6 +135,13 @@
             }
         });
 
+        // Resize the main container to remove empty gray space
+        const hamburgerContainer = document.querySelector('.mk-hamburger');
+        if (hamburgerContainer) {
+            hamburgerContainer.style.width = '540px';
+            hamburgerContainer.style.height = '540px';
+        }
+
         // Remove specific hamburger menu items by text
         const hamburgerItems = document.querySelectorAll('.mk-hamburger-item');
         hamburgerItems.forEach(item => {
