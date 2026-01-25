@@ -135,6 +135,13 @@
             }
         });
 
+        // Resize the main container to remove empty gray space
+        const hamburgerContainer = document.querySelector('.mk-hamburger');
+        if (hamburgerContainer) {
+            hamburgerContainer.style.width = '540px';
+            hamburgerContainer.style.height = '540px';
+        }
+
         // Remove specific hamburger menu items by text
         const hamburgerItems = document.querySelectorAll('.mk-hamburger-item');
         hamburgerItems.forEach(item => {
@@ -188,13 +195,86 @@
                 else item.style.display = 'none';
             }
         });
+
+        // Ensure button logic is active
+        setupButtons();
+    }
+
+    // Function to handle CV download and other button interactions
+    function setupButtons() {
+        // 1. Handle CV Download
+        const cvButtons = document.querySelectorAll('button');
+        cvButtons.forEach(btn => {
+            if (btn.textContent.includes('Curriculum Vitae')) {
+                // Remove cloning, just overwrite onclick heavily
+                btn.onclick = function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const link = document.createElement('a');
+                    // Use a root-relative path to ensure it works from any sub-page
+                    link.href = '/assets/CV.pdf';
+                    link.download = 'Bhumit_Nasit_CV.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                };
+            }
+        });
+
+        // 2. Handle 'Say Hello' button
+        // It likely has a text 'Say Hello' inside it.
+        const allButtons = document.querySelectorAll('button, a, .mk-button');
+        allButtons.forEach(el => {
+            if (el.textContent.trim().toLowerCase() === 'say hello') {
+                el.onclick = function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Say Hello clicked');
+                    window.location.href = 'mailto:bhumitnasit1@gmail.com';
+                }
+                el.style.cursor = 'pointer'; // Ensure it looks clickable
+            }
+        });
+
+        // 3. Handle 'Contact' in Hamburger Menu
+        // The structure is complex, so we target the text content within the menu items we kept
+        const hamburgerItems = document.querySelectorAll('.mk-hamburger-item');
+        hamburgerItems.forEach(item => {
+            if (item.textContent.toLowerCase().includes('contact')) {
+                item.onclick = function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // If we are already on the homepage (root or index.html)
+                    const path = window.location.pathname;
+                    if (path === '/' || path === '/index.html') {
+                        // Scroll to bottom or specific contact element
+                        const contactSection = document.getElementById('contact');
+                        if (contactSection) {
+                            contactSection.scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                        }
+                    } else {
+                        // Redirect to homepage with hash
+                        window.location.href = '/#contact';
+                    }
+                }
+                // Also make sure the parent container is clickable if the text isn't hitting the target
+                item.style.cursor = 'pointer';
+            }
+        });
     }
 
     // Run on page load
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', replaceContent);
+        document.addEventListener('DOMContentLoaded', () => {
+            replaceContent();
+            setupButtons();
+        });
     } else {
         replaceContent();
+        setupButtons();
     }
 
     // Also run after delays to catch dynamically loaded content
