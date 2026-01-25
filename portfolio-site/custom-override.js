@@ -212,7 +212,7 @@
                     e.stopPropagation();
                     const link = document.createElement('a');
                     // Use a root-relative path to ensure it works from any sub-page
-                    link.href = '/assets/CV.pdf';
+                    link.href = 'assets/CV.pdf';
                     link.download = 'CV.pdf';
                     document.body.appendChild(link);
                     link.click();
