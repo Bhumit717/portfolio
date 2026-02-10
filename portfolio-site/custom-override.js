@@ -9,10 +9,10 @@
             'Muhammad Aamir Malik': 'BHUMIT NASIT',
             'muhammadaamirmalik': 'BHUMIT NASIT',
             'Full Stack Hyda': 'Full Stack Website Builder',
-            'A Mobile App Developer': 'A Full Stack Website Builder',
-            'A Full Stack Hybrid App Developer': 'Student at GEC Rajkot',
-            'I build things for the App': 'I build fullstack websites',
-            'skilled mobile app developer with over 4 years': 'student at GEC Rajkot with skills in C, HTML, CSS, JS, DBMS',
+            'A Website developer': 'A Full Stack Website Builder',
+            'A Full Stack Hybrid Web Developer': 'Student at GEC Rajkot',
+            'I build things for the web': 'I build fullstack websites',
+            'skilled mobile app developer with over 4 years': 'student at GEC Rajkot with skills in website developing languages like React, Next.js, and more',
             'React Native': 'Web Development',
             'mobile apps': 'websites',
             'mobile app': 'website',
@@ -22,7 +22,11 @@
             'Pakistan': 'India',
             'Lahore': 'Rajkot',
             'Allah': 'God',
-            'Islamic': 'Hindu'
+            'Islamic': 'Hindu',
+            'Cognito': 'Next.js',
+            'Serverless': 'Tailwind CSS',
+            'AWS': 'Bootstrap',
+            'Firestore': 'PostgreSQL'
         };
 
         // Function to replace text in all text nodes
@@ -97,6 +101,20 @@
         const projectImages = document.querySelectorAll('.mk-projects-image-container, .mk-text-image-container');
         projectImages.forEach(container => {
             container.style.display = 'none';
+        });
+
+        // Hide 'View Details' buttons
+        const viewDetailButtons = document.querySelectorAll('.mk-projects-view-details-btn');
+        viewDetailButtons.forEach(btn => {
+            btn.style.display = 'none';
+        });
+
+        // Catch any other elements with "View Details" text
+        const allElements = document.querySelectorAll('a, button, .mk-button, .mk-button-md');
+        allElements.forEach(el => {
+            if (el.textContent.toLowerCase().includes('view details')) {
+                el.style.display = 'none';
+            }
         });
 
         // Hide social media icons
@@ -195,6 +213,30 @@
                 else item.style.display = 'none';
             }
         });
+
+        // Add email and phone to contact section
+        const contactContent = document.querySelector('.mk-contact-box-width');
+        if (contactContent && !document.getElementById('custom-contact-info')) {
+            const infoDiv = document.createElement('div');
+            infoDiv.id = 'custom-contact-info';
+            infoDiv.style.marginTop = '20px';
+            infoDiv.style.textAlign = 'center';
+            infoDiv.innerHTML = `
+                <div style="font-size: 1.2rem; margin-bottom: 10px; color: var(--themeColor3);">
+                    <a href="mailto:bhumitnasit1@gmail.com" style="text-decoration: none; color: inherit;">bhumitnasit1@gmail.com</a>
+                </div>
+                <div style="font-size: 1.2rem; color: var(--themeColor3);">
+                    +91 7984133417
+                </div>
+            `;
+            // Insert after the button container
+            const buttonContainer = contactContent.querySelector('.mk-contact-button');
+            if (buttonContainer) {
+                buttonContainer.after(infoDiv);
+            } else {
+                contactContent.appendChild(infoDiv);
+            }
+        }
 
         // Ensure button logic is active
         setupButtons();
