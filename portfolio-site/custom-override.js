@@ -263,20 +263,54 @@
             }
         });
 
-        // 2. Handle 'Say Hello' button
-        // It likely has a text 'Say Hello' inside it.
-        const allButtons = document.querySelectorAll('button, a, .mk-button');
-        allButtons.forEach(el => {
-            if (el.textContent.trim().toLowerCase() === 'say hello') {
-                el.onclick = function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('Say Hello clicked');
-                    window.location.href = 'mailto:bhumitnasit1@gmail.com';
-                }
-                el.style.cursor = 'pointer'; // Ensure it looks clickable
+        // 2. Handle 'Say Hello' button - Integration with Jelly Switch
+        const contactButtonContainer = document.querySelector('.mk-contact-button');
+        if (contactButtonContainer && !document.getElementById('jelly-canvas')) {
+            const button = contactButtonContainer.querySelector('button');
+            if (button && button.textContent.trim().toLowerCase() === 'say hello') {
+                // DON'T hide the original button - keeping it as requested
+                button.style.marginBottom = '20px'; // Add some space for the switch below
+
+                // Create container for Jelly Switch to sit below the button
+                const switchWrapper = document.createElement('div');
+                switchWrapper.id = 'jelly-switch-wrapper';
+                switchWrapper.style.marginTop = '30px';
+                switchWrapper.style.display = 'flex';
+                switchWrapper.style.justifyContent = 'center';
+                switchWrapper.style.width = '100%';
+
+                // Create canvas for Jelly Switch
+                const canvas = document.createElement('canvas');
+                canvas.id = 'jelly-canvas';
+                canvas.style.width = '500px';
+                canvas.style.height = '320px';
+                canvas.style.cursor = 'pointer';
+                canvas.style.backgroundColor = 'transparent'; // Ensure transparent background
+
+                switchWrapper.appendChild(canvas);
+                contactButtonContainer.appendChild(switchWrapper);
+
+                // Load the Jelly Switch bundle
+                const script = document.createElement('script');
+                script.src = 'assets/jelly-switch-bundle.js';
+                script.type = 'module';
+                document.body.appendChild(script);
+
+                // Clean up UI and add subtle effect
+                const style = document.createElement('style');
+                style.textContent = `
+                    body > div[style*="grid"] { display: none !important; }
+                    #jelly-canvas { 
+                        transition: transform 0.2s ease;
+                    }
+                    #jelly-canvas:hover { 
+                        transform: scale(1.02);
+                    }
+                `;
+                document.head.appendChild(style);
             }
-        });
+        }
+
 
         // 3. Handle 'Contact' in Hamburger Menu
         // The structure is complex, so we target the text content within the menu items we kept
