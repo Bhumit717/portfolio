@@ -8962,7 +8962,7 @@ const randf = {
   inUnitSphere: randInUnitSphere,
   onUnitSphere: randOnUnitSphere
 };
-const MAX_STEPS = 256;
+const MAX_STEPS = 160;
 const MAX_DIST = 10;
 const SURF_DIST = 5e-4;
 const LIGHT_GROUND_ALBEDO = ke$2(1);
@@ -8973,7 +8973,7 @@ const SPECULAR_POWER = 10;
 const SPECULAR_INTENSITY = 0.6;
 const JELLY_IOR = 1.42;
 const JELLY_SCATTER_STRENGTH = 3;
-const AO_STEPS = 16;
+const AO_STEPS = 10;
 const AO_RADIUS = 0.15;
 const AO_INTENSITY = 0.8;
 const AO_BIAS = SURF_DIST * 5;
@@ -12905,7 +12905,7 @@ context.configure({
 });
 const switchBehavior = new SwitchBehavior(root);
 await switchBehavior.init();
-let qualityScale = 2;
+let qualityScale = 1.5;
 const dpr = window.devicePixelRatio || 1;
 canvas.width = canvas.clientWidth * dpr;
 canvas.height = canvas.clientHeight * dpr;

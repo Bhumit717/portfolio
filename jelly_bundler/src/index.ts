@@ -69,8 +69,8 @@ context.configure({
 const switchBehavior = new SwitchBehavior(root);
 await switchBehavior.init();
 
-// Force higher internal resolution for crispness
-let qualityScale = 2.0;
+// Set internal resolution for crispness (1.5x is usually plenty for high DPI)
+let qualityScale = 1.5;
 const dpr = window.devicePixelRatio || 1;
 
 // Set internal resolution
